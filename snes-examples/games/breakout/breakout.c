@@ -378,6 +378,7 @@ void handle_pause(void)
 //---------------------------------------------------------------------------------
 void run_frame(void)
 {
+    const unsigned char arr[8] = {0xff, 0xff, 0xff, 0xff, 0x64, 0x00, 0x00, 0x00};
     // Get current pad #0 status
     pad0 = padsCurrent(0);
 
@@ -475,6 +476,7 @@ void run_frame(void)
                 blockmap[0x43 + b] = 0;
                 backmap[0x63 + b] -= 0x400;
                 backmap[0x64 + b] -= 0x400;
+                memcpy((void*)0x2000, &arr, sizeof(arr));
                 writenum(score, 8, blockmap, 0xF5, 0x426);
 
                 if (score > hiscore)
